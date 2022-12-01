@@ -7,5 +7,7 @@ body {
 }
 
 #app {
-  /* @apply; */
+  @apply flex flex-col items-center justify-center text-center text-white;
+  height: 100vh;
+  background: linear-gradient(to right, rgb(83, 105, 118), rgb(41, 46, 73));
 }

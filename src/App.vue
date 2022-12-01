@@ -1,11 +1,16 @@
 <template>
   <div>
-    <h2 class="text-3xl font-mono text-center">Hello World</h2>
+    <h2 class="text-2xl text-center font-mono">The Calculator</h2>
+    <Calculator />
   </div>
 </template>
 
 <script>
-export default {
+import Calculator from '@/views/Calculator.vue';
 
+export default {
+  components: {
+    Calculator,
+  },
 }
 </script>
