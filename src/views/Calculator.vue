@@ -1,6 +1,6 @@
 <template>
   <div class="calculator h-[320px] w-[235px] rounded-[5px] overflow-hidden mt-8">
-    <Display value="1000" />
+    <Display :value="displayValue" />
     <Button label="AC" triple @onCalcButtonClick="clearMemory" />
     <Button label="/" operation @onCalcButtonClick="setOperation" />
     <Button label="7" @onCalcButtonClick="addDigit" />
@@ -25,15 +25,58 @@
 import Button from '@/components/Button.vue';
 import Display from '@/components/Display.vue';
 export default {
+  data() {
+    return {
+      displayValue: "0",
+      clearDisplay: false,
+      operation: null,
+      values: [0, 0],
+      current: 0
+    }
+  },
   methods: {
     clearMemory() {
-      console.log('Cleaning Memory')
+      Object.assign(this.$data, this.$options.data())
     },
     setOperation(operator) {
-      console.log('Operator', operator)
+      if (this.current === 0) {
+        this.operation = operator
+        this.current = 1
+        this.clearDisplay = true
+      } else {
+        const equals = operator === '='
+        const currentOperation = this.operation
+
+        try {
+          this.values[0] = eval(
+            `${this.values[0]} ${currentOperation} ${this.values[1]}`
+          )
+        } catch (e) {
+          this.$emit('onError', e)
+        }
+
+        this.values[1] = 0
+        this.displayValue = this.values[0]
+        this.operation = equals ? null : operator
+        this.current = equals ? 0 : 1
+        this.clearDisplay = !equals
+      }
+      // console.log('Operator', operator)
     },
-    addDigit(digit) {
-      console.log('Digit', digit)
+    addDigit(d) {
+      if (d === '.' && this.displayValue.includes('.')) return
+      const clearDisplay = this.displayValue === '0' || this.clearDisplay
+      const currentValue = clearDisplay ? "" : this.displayValue
+      const displayValue = currentValue + d
+
+      this.displayValue = displayValue
+      this.clearDisplay = false
+
+      if (d !== '.') {
+        const curr = this.current
+        const newValue = parseFloat(displayValue)
+        this.values[curr] = newValue
+      }
     }
   },
   components: {
