@@ -1,7 +1,5 @@
-# Vue 3 + Vite
+The Calculator Project
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+A simple project built with vite using vue as template to pratice some concepts and fixing some methods of this awesome frameworks, the VueJs
 
-## Recommended IDE Setup
-
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
+![1669943740744](image/README/1669943740744.png)
